@@ -22,14 +22,14 @@ const displayUserInfo = function (data) {
   div.classList.add("user-info");
   div.innerHTML = `
     <figure>
-        <img alt="user avatar" src=${data.avatar_url} />
-      </figure>
-      <div>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Bio:</strong> ${data.bio}</p>
-        <p><strong>Location:</strong> ${data.location}</p>
-        <p><strong>Number of public repos:</strong> ${data.public_repos}</p>
-      </div>`;
+    <img alt="user avatar" src=${data.avatar_url} />
+    </figure>
+    <div>
+    <p><strong>Name:</strong> ${data.name}</p>
+    <p><strong>Bio:</strong> ${data.bio}</p>
+    <p><strong>Location:</strong> ${data.location}</p>
+    <p><strong>Number of public repos:</strong> ${data.public_repos}</p>
+    </div>`;
   overview.append(div);
   getRepos();
 };
@@ -102,3 +102,29 @@ const displayRepo = function (repoInfo, languages) {
       }" target="_blank" rel="noreferrer noopener">View Repo on GitHub!</a>`;
   repoData.append(repoDiv);
 };
+
+//FUNCTION TO MAKE BUTTON WORK
+viewRepos.addEventListener("click", function () {
+  repos.classList.remove("hide");
+  repoData.classList.add("hide");
+  viewRepos.classList.add("hide");
+});
+
+//FUNCTION TO MAKE SEARCH FIELD WORK
+//search function
+filterInput.addEventListener("input", function (e) {
+  const search = e.target.value;
+  console.log(search);
+  const repos = document.querySelectorAll(".repo");
+  const searchLower = search.toLowerCase();
+
+  //display results of search
+  for (const repo of repos) {
+    const repoLowerText = repo.innerText.toLowerCase();
+    if (repoLowerText.includes(searchLower)) {
+      repo.classList.remove("hide");
+    } else {
+      repo.classList.add("hide");
+    }
+  }
+});
